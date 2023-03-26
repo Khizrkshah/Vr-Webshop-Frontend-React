@@ -26,7 +26,9 @@ export function Home() {
           <nav>
             <ul>
               <li>
-                <a href={"/pages/About.jsx"}>About</a>
+                <Link to="/about">
+                  <button>Go to About Page</button>
+                </Link>
               </li>
               <li>
                 <a href="/">Cart</a>

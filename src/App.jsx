@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "./pages/Home";
+import { About } from "./pages/About";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -20,7 +22,16 @@ function App() {
   //     });
   // }, []);
 
-  return <Home />;
+  return (
+    <BrowserRouter>
+      <div className="container mt-2" style={{ marginTop: 40 }}>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
 }
 
 export default App;
