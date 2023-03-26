@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Product } from "../components/Product";
 import "../css/homepagestyle.css";
+import { Link } from "react-router-dom";
 
 export function Home() {
   const [products, setProducts] = useState();
@@ -27,7 +28,7 @@ export function Home() {
             <ul>
               <li>
                 <Link to="/about">
-                  <button>Go to About Page</button>
+                  <a>About</a>
                 </Link>
               </li>
               <li>
@@ -39,7 +40,13 @@ export function Home() {
       </header>
       <hr />
       {products &&
-        products.map((product) => <Product key={product.id} props={product} />)}
+        products.map((product) => (
+          <Product
+            key={product.id}
+            props={product}
+            isLastItem={product.id == products.length}
+          />
+        ))}
       <hr />
       <footer className="footer">
         <div className="constraint">Khizr Shah &copy; 2023</div>

@@ -29,6 +29,7 @@ export function Product(props) {
           <img src={props.props.imageSrc} width="300" />
         </div>
       </article>
+      {!props.isLastItem && <hr />}
     </section>
   );
 }
