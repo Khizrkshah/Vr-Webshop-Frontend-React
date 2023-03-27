@@ -13,13 +13,15 @@ export function Product(props) {
           <nav className="product-nav">
             <ul>
               <li>
-                <a href="#" className="button button-orange">
+                <a
+                  href="#"
+                  className={
+                    props.props.id % 2 == 0
+                      ? "button button-orange"
+                      : "button button-white"
+                  }
+                >
                   Buy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="button button-white">
-                  Learn More &gt;
                 </a>
               </li>
             </ul>
