@@ -8,6 +8,7 @@ export function Login() {
   const isLoggedIn = useRef(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showError, setShowError] = useState(false);
 
   function loginCheck(data) {
     fetch("http://localhost:8081/api/auth/login", {
@@ -29,7 +30,7 @@ export function Login() {
     navigate("/home");
   }
   function loginFalse() {
-    navigate("/error-login");
+    setShowError(true);
   }
 
   const handleEmailChange = (event) => {
@@ -72,6 +73,13 @@ export function Login() {
 
         <button onClick={handleClick}>Login</button>
         <button onClick={() => navigate("/register")}>Register</button>
+
+        {showError && ( // render popup if showError state is true
+          <div className="popup">
+            <p>Email or password is incorrect.</p>
+            <button onClick={() => setShowError(false)}>Close</button>
+          </div>
+        )}
       </div>
       <hr />
       <footer className="footer">
