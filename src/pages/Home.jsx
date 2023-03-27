@@ -19,7 +19,7 @@ export function Home() {
       <header className="header">
         <div className="constraint">
           <h1>
-            <a href="/">
+            <a href="/home">
               <span>Kai's VR Store</span>
               <img src={"/images/icon.png"} alt="icon.png" />
             </a>
@@ -27,9 +27,7 @@ export function Home() {
           <nav>
             <ul>
               <li>
-                <Link to="/about">
-                  <a>About</a>
-                </Link>
+                <Link to="/about">About</Link>
               </li>
               <li>
                 <a href="/">Cart</a>
@@ -49,7 +47,7 @@ export function Home() {
         ))}
       <hr />
       <footer className="footer">
-        <div className="constraint">Khizr Shah &copy; 2023</div>
+        <div className="constraint">Mian Khizr Shah &copy; 2023</div>
       </footer>
     </div>
   );

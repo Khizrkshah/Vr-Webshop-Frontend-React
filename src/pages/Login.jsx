@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { unstable_batchedUpdates } from "react-dom";
 import { Navigate, useNavigate } from "react-router-dom";
 import "../css/homepagestyle.css";
 
 export function Login() {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isLoggedIn = useRef(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  //const data = { email: "a password: "alexsan123" };
 
   function loginCheck(data) {
     fetch("http://localhost:8081/api/auth/login", {
@@ -20,9 +19,17 @@ export function Login() {
     })
       .then((response) => response.json())
       .then((data) => {
-        //navigate("/home");
-        return data == true ? navigate("/home") : navigate("/error-login");
+        return data == true ? loginTrue() : loginFalse();
       });
+  }
+
+  function loginTrue() {
+    isLoggedIn.current = true;
+    console.log(isLoggedIn);
+    navigate("/home");
+  }
+  function loginFalse() {
+    navigate("/error-login");
   }
 
   const handleEmailChange = (event) => {
@@ -37,21 +44,6 @@ export function Login() {
     const data = { email, password };
     loginCheck(data);
   };
-
-  /*useEffect(() => {
-    fetch("http://localhost:8081/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-        //data == true ? Navigate("/home") : Navigate("/error-login");
-      });
-  }, []);*/
 
   return (
     <div className="App">
@@ -81,6 +73,10 @@ export function Login() {
         <button onClick={handleClick}>Login</button>
         <button onClick={() => navigate("/register")}>Register</button>
       </div>
+      <hr />
+      <footer className="footer">
+        <div className="constraint">Mian Khizr Shah &copy; 2023</div>
+      </footer>
     </div>
   );
 }
