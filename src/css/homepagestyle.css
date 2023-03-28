@@ -12,10 +12,15 @@ body {
 
 .App {
   height: 100dvh;
+  position: relative;
 }
 
 .login {
-  padding: 16px;
+  padding: 0 100px;
+}
+
+.loginimg {
+  text-align: center;
 }
 
 h4 {
@@ -107,6 +112,8 @@ hr {
 /* header */
 .header {
   background-color: #333;
+  position: fixed;
+  width: 100%;
 }
 .header .constraint {
   display: flex;
