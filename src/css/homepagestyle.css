@@ -32,6 +32,7 @@ h4 {
   display: inline-block;
   position: relative;
   background: linear-gradient(90deg, #333 25%, #04aa6d 50%, #333 75%);
+  background-clip: content-box;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: all 0.3s ease;
