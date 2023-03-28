@@ -48,6 +48,12 @@ export function Login() {
 
   return (
     <div className="App">
+      <div className="constraint">
+        <img src="/images/icon.png" width="300"></img>
+      </div>
+      <div className="constraint">
+        <h4>Welcome to Kai's VR Store!</h4>
+      </div>
       <div className="login">
         <label>
           <b>Email</b>

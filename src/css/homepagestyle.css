@@ -1,9 +1,13 @@
 /* base styles*/
 body {
-  background-color: antiquewhite;
+  background-color: #faebd7;
   margin: 0;
   font-family: "Ubuntu", sans-serif;
   height: 100dvh;
+}
+
+.login-image {
+  width: 300px;
 }
 
 .App {
@@ -12,6 +16,31 @@ body {
 
 .login {
   padding: 16px;
+}
+
+h4 {
+  font-family: "Roboto", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 24px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #faebd7;
+  display: inline-block;
+  position: relative;
+  background: linear-gradient(90deg, #333 25%, #04aa6d 50%, #333 75%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease;
+}
+
+h4:hover {
+  transform: scale(1.1);
+  color: #04aa6d;
+  -webkit-text-fill-color: initial;
 }
 
 input[type="text"],
