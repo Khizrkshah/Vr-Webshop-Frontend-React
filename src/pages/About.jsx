@@ -62,7 +62,7 @@ export function About() {
             excited to bring you a new way of shopping that combines the best of
             both worlds: convenience and immersion.
           </p>
-          <a href="/" className="button button-white">
+          <a href="/home" className="button button-white">
             Go Back Home.
           </a>
         </article>
