@@ -1,25 +1,23 @@
-export function Product(props) {
+export function Product({ props, addProductToCart }) {
   return (
     <section className="constraint">
       <article
-        className={
-          props.props.id % 2 == 0 ? "product product-reverse" : "product"
-        }
+        className={props.id % 2 == 0 ? "product product-reverse" : "product"}
       >
         <div className="product-text">
-          <h1>{props.props.name}</h1>
-          <h2>{props.props.price}</h2>
-          <p>{props.props.description}</p>
+          <h1>{props.name}</h1>
+          <h2>{props.price}</h2>
+          <p>{props.description}</p>
           <nav className="product-nav">
             <ul>
               <li>
                 <a
-                  href="#"
                   className={
-                    props.props.id % 2 == 0
+                    props.id % 2 == 0
                       ? "button button-orange"
                       : "button button-white"
                   }
+                  onClick={() => addProductToCart(props)}
                 >
                   Buy
                 </a>
@@ -28,7 +26,7 @@ export function Product(props) {
           </nav>
         </div>
         <div className="product-img">
-          <img src={props.props.imageSrc} width="300" />
+          <img src={props.imageSrc} width="300" />
         </div>
       </article>
       {!props.isLastItem && <hr />}

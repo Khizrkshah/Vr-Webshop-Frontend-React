@@ -2,9 +2,27 @@ import { useEffect, useState } from "react";
 import { Product } from "../components/Product";
 import "../css/homepagestyle.css";
 import { Link } from "react-router-dom";
+import { Cart } from "../components/Cart";
+import { GiShoppingBag } from "react-icons/gi";
 
 export function Home() {
   const [products, setProducts] = useState();
+  const [cartVisibility, setCartVisibility] = useState(false);
+  const [productsInCart, setProductsInCart] = useState(
+    JSON.parse(localStorage.getItem("shopping-cart")) || []
+  );
+
+  useEffect(() => {
+    localStorage.setItem("shopping-cart", JSON.stringify(productsInCart));
+  }, [productsInCart]);
+
+  const addProductToCart = (product) => {
+    const newProduct = {
+      ...product,
+      count: 1,
+    };
+    setProductsInCart([...productsInCart, newProduct]);
+  };
 
   useEffect(() => {
     fetch("http://localhost:8081/api/product")
@@ -14,8 +32,37 @@ export function Home() {
       });
   }, []);
 
+  const onQuantityChange = (productId, count) => {
+    setProductsInCart((oldState) => {
+      const productsIndex = oldState.findIndex((item) => item.id === productId);
+      if (productsIndex !== -2) {
+        oldState[productsIndex].count = count;
+      }
+      return [...oldState];
+    });
+  };
+
+  const onProductRemove = (product) => {
+    setProductsInCart((oldState) => {
+      const productsIndex = oldState.findIndex(
+        (item) => item.id === product.id
+      );
+      if (productsIndex !== -1) {
+        oldState.splice(productsIndex, 1);
+      }
+      return [...oldState];
+    });
+  };
+
   return (
     <div className="App">
+      <Cart
+        visibility={cartVisibility}
+        products={productsInCart}
+        onClose={() => setCartVisibility(false)}
+        onQuantityChange={onQuantityChange}
+        onProductRemove={onProductRemove}
+      />
       <header className="header">
         <div className="constraint">
           <h1>
@@ -30,7 +77,14 @@ export function Home() {
                 <Link to="/about">About</Link>
               </li>
               <li>
-                <a href="/">Cart</a>
+                <a onClick={() => setCartVisibility(true)}>
+                  <GiShoppingBag size={24} />
+                  {productsInCart.length > 0 && (
+                    <span className="product-count">
+                      {productsInCart.length}
+                    </span>
+                  )}
+                </a>
               </li>
             </ul>
           </nav>
@@ -43,6 +97,7 @@ export function Home() {
             key={product.id}
             props={product}
             isLastItem={product.id == products.length}
+            addProductToCart={addProductToCart}
           />
         ))}
       <hr />
