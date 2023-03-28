@@ -84,6 +84,12 @@
   margin: 2rem 1rem;
 }
 
+.header-cart {
+  background-color: #ffd093;
+  display: flex;
+  justify-content: space-between;
+}
+
 .btn {
   width: auto;
 }

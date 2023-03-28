@@ -13,7 +13,7 @@ export function Cart({
   return (
     <div className="modal" style={{ display: visibility ? "block" : "none" }}>
       <div className="shoppingCart">
-        <div className="header">
+        <div className="header-cart">
           <h2>Shopping Cart</h2>
           <button className="btn close-btn" onClick={onClose}>
             <AiFillCloseCircle size={30} />
