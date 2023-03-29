@@ -25,7 +25,7 @@ export function Home() {
   };
 
   useEffect(() => {
-    fetch("http://localhost:8081/api/product")
+    fetch("http://192.168.0.128:8081/api/product")
       .then((res) => res.json())
       .then((jsonRes) => {
         setProducts(jsonRes);
