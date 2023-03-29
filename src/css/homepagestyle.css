@@ -6,17 +6,16 @@ body {
   height: 100dvh;
 }
 
+.App {
+  height: 100dvh;
+}
+
 .login-image {
   width: 300px;
 }
 
-.App {
-  height: 100dvh;
-  position: relative;
-}
-
 .login {
-  padding: 0 100px;
+  padding: 20px 100px;
 }
 
 .loginimg {
@@ -224,8 +223,8 @@ hr {
   padding: 20px 0;
   background-color: #333;
   color: antiquewhite;
-  position: absolute;
-  bottom: 0;
+  /* position: absolute;
+  bottom: 0; */
   width: 100%;
 }
 
@@ -254,4 +253,12 @@ hr {
   .content p {
     font-size: 16px;
   }
+}
+
+.about {
+  height: 100vh;
+}
+
+a {
+  cursor: pointer;
 }

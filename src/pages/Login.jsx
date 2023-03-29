@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from "react";
-import { unstable_batchedUpdates } from "react-dom";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useState, useRef, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../App";
 import "../css/homepagestyle.css";
 
 export function Login() {
@@ -9,18 +9,31 @@ export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showError, setShowError] = useState(false);
+  const userStore = useContext(UserContext);
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (isLoggedIn) navigate("/home");
+  }, []);
 
   function loginCheck(data) {
     fetch("http://localhost:8081/api/auth/login", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(data)
     })
-      .then((response) => response.json())
-      .then((data) => {
-        return data == true ? loginTrue() : loginFalse();
+      .then(response => response.json())
+      .then(data => {
+        userStore.isLoggedIn = true;
+        userStore.userId = data;
+        localStorage.setItem("isLoggedIn", true);
+        loginTrue();
+      })
+      .catch(e => {
+        console.error(e);
+        loginFalse();
       });
   }
 
@@ -33,11 +46,11 @@ export function Login() {
     setShowError(true);
   }
 
-  const handleEmailChange = (event) => {
+  const handleEmailChange = event => {
     setEmail(event.target.value);
   };
 
-  const handlePasswordChange = (event) => {
+  const handlePasswordChange = event => {
     setPassword(event.target.value);
   };
 
@@ -58,13 +71,7 @@ export function Login() {
         <label>
           <b>Email</b>
         </label>
-        <input
-          type="text"
-          id="Email"
-          placeholder="Enter Email"
-          onChange={handleEmailChange}
-          value={email}
-        ></input>
+        <input type="text" id="Email" placeholder="Enter Email" onChange={handleEmailChange} value={email}></input>
 
         <label>
           <b>Password</b>
@@ -88,9 +95,6 @@ export function Login() {
         )}
       </div>
       <hr />
-      <footer className="footer">
-        <div className="constraint">Mian Khizr Shah &copy; 2023</div>
-      </footer>
     </div>
   );
 }

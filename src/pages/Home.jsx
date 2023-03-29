@@ -1,40 +1,39 @@
 import { useEffect, useState } from "react";
 import { Product } from "../components/Product";
 import "../css/homepagestyle.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Cart } from "../components/Cart";
 import { GiShoppingBag } from "react-icons/gi";
 
 export function Home() {
   const [products, setProducts] = useState();
   const [cartVisibility, setCartVisibility] = useState(false);
-  const [productsInCart, setProductsInCart] = useState(
-    JSON.parse(localStorage.getItem("shopping-cart")) || []
-  );
+  const [productsInCart, setProductsInCart] = useState(JSON.parse(localStorage.getItem("shopping-cart")) || []);
+  const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem("shopping-cart", JSON.stringify(productsInCart));
   }, [productsInCart]);
 
-  const addProductToCart = (product) => {
+  const addProductToCart = product => {
     const newProduct = {
       ...product,
-      count: 1,
+      count: 1
     };
     setProductsInCart([...productsInCart, newProduct]);
   };
 
   useEffect(() => {
     fetch("http://localhost:8081/api/product")
-      .then((res) => res.json())
-      .then((jsonRes) => {
+      .then(res => res.json())
+      .then(jsonRes => {
         setProducts(jsonRes);
       });
   }, []);
 
   const onQuantityChange = (productId, count) => {
-    setProductsInCart((oldState) => {
-      const productsIndex = oldState.findIndex((item) => item.id === productId);
+    setProductsInCart(oldState => {
+      const productsIndex = oldState.findIndex(item => item.id === productId);
       if (productsIndex !== -2) {
         oldState[productsIndex].count = count;
       }
@@ -42,11 +41,9 @@ export function Home() {
     });
   };
 
-  const onProductRemove = (product) => {
-    setProductsInCart((oldState) => {
-      const productsIndex = oldState.findIndex(
-        (item) => item.id === product.id
-      );
+  const onProductRemove = product => {
+    setProductsInCart(oldState => {
+      const productsIndex = oldState.findIndex(item => item.id === product.id);
       if (productsIndex !== -1) {
         oldState.splice(productsIndex, 1);
       }
@@ -55,7 +52,7 @@ export function Home() {
   };
 
   return (
-    <div className="App">
+    <div>
       <Cart
         visibility={cartVisibility}
         products={productsInCart}
@@ -79,11 +76,17 @@ export function Home() {
               <li>
                 <a onClick={() => setCartVisibility(true)}>
                   <GiShoppingBag size={24} />
-                  {productsInCart.length > 0 && (
-                    <span className="product-count">
-                      {productsInCart.length}
-                    </span>
-                  )}
+                  {productsInCart.length > 0 && <span className="product-count">{productsInCart.length}</span>}
+                </a>
+              </li>
+              <li>
+                <a
+                  onClick={() => {
+                    localStorage.removeItem("isLoggedIn");
+                    navigate("/");
+                  }}
+                >
+                  Logout
                 </a>
               </li>
             </ul>
@@ -92,7 +95,7 @@ export function Home() {
       </header>
       <hr />
       {products &&
-        products.map((product) => (
+        products.map(product => (
           <Product
             key={product.id}
             props={product}
@@ -100,10 +103,6 @@ export function Home() {
             addProductToCart={addProductToCart}
           />
         ))}
-      <hr />
-      <footer className="footer">
-        <div className="constraint">Mian Khizr Shah &copy; 2023</div>
-      </footer>
     </div>
   );
 }
