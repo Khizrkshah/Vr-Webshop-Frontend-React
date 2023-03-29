@@ -6,7 +6,7 @@ export function Product({ props, addProductToCart }) {
       >
         <div className="product-text">
           <h1>{props.name}</h1>
-          <h2>{props.price}</h2>
+          <h2>HUF {props.price}</h2>
           <p>{props.description}</p>
           <nav className="product-nav">
             <ul>
