@@ -82,8 +82,8 @@ export function Home() {
       const firstProduct = productsInCart[0];
       const purchaseData = {
         productId: firstProduct.id,
-        count: firstProduct.count,
         userId: userIdCheckout,
+        count: firstProduct.count,
       };
       purchaseItems(purchaseData);
       setCheckoutVisibility(true);
