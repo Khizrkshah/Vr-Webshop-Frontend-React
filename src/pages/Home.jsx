@@ -10,14 +10,10 @@ import { Checkout } from "./CheckOut";
 export function Home() {
   const [products, setProducts] = useState();
   const [cartVisibility, setCartVisibility] = useState(false);
-  const [productsInCart, setProductsInCart] = useState(
-    JSON.parse(localStorage.getItem("shopping-cart")) || []
-  );
+  const [productsInCart, setProductsInCart] = useState(JSON.parse(localStorage.getItem("shopping-cart")) || []);
   const navigate = useNavigate();
   const userStore = useContext(UserContext);
-  const [userIdCheckout, setUserIdCheckout] = useState(
-    localStorage.getItem("userId") || null
-  );
+  const [userIdCheckout, setUserIdCheckout] = useState(localStorage.getItem("userId") || null);
 
   const [checkoutVisibility, setCheckoutVisibility] = useState(false);
 
@@ -32,15 +28,13 @@ export function Home() {
     localStorage.setItem("shopping-cart", JSON.stringify(productsInCart));
   }, [productsInCart]);
 
-  const addProductToCart = (product) => {
-    const productExists = productsInCart.some(
-      (existingProduct) => existingProduct.id === product.id
-    );
+  const addProductToCart = product => {
+    const productExists = productsInCart.some(existingProduct => existingProduct.id === product.id);
 
     if (!productExists) {
       const newProduct = {
         ...product,
-        count: 1,
+        count: 1
       };
       setProductsInCart([...productsInCart, newProduct]);
     }
@@ -48,15 +42,15 @@ export function Home() {
 
   useEffect(() => {
     fetch("http://192.168.0.128:8081/api/product")
-      .then((res) => res.json())
-      .then((jsonRes) => {
+      .then(res => res.json())
+      .then(jsonRes => {
         setProducts(jsonRes);
       });
   }, []);
 
   const onQuantityChange = (productId, count) => {
-    setProductsInCart((oldState) => {
-      const productsIndex = oldState.findIndex((item) => item.id === productId);
+    setProductsInCart(oldState => {
+      const productsIndex = oldState.findIndex(item => item.id === productId);
       if (productsIndex !== -2) {
         oldState[productsIndex].count = count;
       }
@@ -64,11 +58,9 @@ export function Home() {
     });
   };
 
-  const onProductRemove = (product) => {
-    setProductsInCart((oldState) => {
-      const productsIndex = oldState.findIndex(
-        (item) => item.id === product.id
-      );
+  const onProductRemove = product => {
+    setProductsInCart(oldState => {
+      const productsIndex = oldState.findIndex(item => item.id === product.id);
       if (productsIndex !== -1) {
         oldState.splice(productsIndex, 1);
       }
@@ -83,7 +75,7 @@ export function Home() {
       const purchaseData = {
         productId: firstProduct.id,
         userId: userIdCheckout,
-        count: firstProduct.count,
+        quantity: firstProduct.count
       };
       purchaseItems(purchaseData);
       setCheckoutVisibility(true);
@@ -95,7 +87,7 @@ export function Home() {
       const purchaseData = {
         productId: firstProduct.id,
         count: firstProduct.count,
-        userId: userIdCheckout,
+        userId: userIdCheckout
       };
 
       purchaseItems(purchaseData);
@@ -107,12 +99,12 @@ export function Home() {
     fetch("http://192.168.0.128:8081/api/product/purchase", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify(purchaseData),
+      body: JSON.stringify(purchaseData)
     })
-      .then((response) => response.json())
-      .then((purchaseData) => {
+      .then(response => response.json())
+      .then(purchaseData => {
         console.log(purchaseData);
       });
   }
@@ -149,11 +141,7 @@ export function Home() {
               <li>
                 <a onClick={() => setCartVisibility(true)}>
                   <GiShoppingBag size={24} />
-                  {productsInCart.length > 0 && (
-                    <span className="product-count">
-                      {productsInCart.length}
-                    </span>
-                  )}
+                  {productsInCart.length > 0 && <span className="product-count">{productsInCart.length}</span>}
                 </a>
               </li>
               <li>
@@ -174,7 +162,7 @@ export function Home() {
       </header>
       <hr />
       {products &&
-        products.map((product) => (
+        products.map(product => (
           <Product
             key={product.id}
             props={product}
