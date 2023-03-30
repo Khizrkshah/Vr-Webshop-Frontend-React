@@ -9,6 +9,7 @@ export function Cart({
   onProductRemove,
   onClose,
   onQuantityChange,
+  onCheckoutClicked,
 }) {
   return (
     <div className="modal" style={{ display: visibility ? "block" : "none" }}>
@@ -57,7 +58,9 @@ export function Cart({
             </div>
           ))}
           {products.length > 0 && (
-            <button className="btn checkout-btn">Proceed to checkout</button>
+            <button className="btn checkout-btn" onClick={onCheckoutClicked}>
+              Proceed to checkout
+            </button>
           )}
         </div>
       </div>

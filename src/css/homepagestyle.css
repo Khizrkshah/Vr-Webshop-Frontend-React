@@ -43,7 +43,7 @@ h4 {
 }
 
 h4:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
   color: #04aa6d;
   -webkit-text-fill-color: initial;
 }

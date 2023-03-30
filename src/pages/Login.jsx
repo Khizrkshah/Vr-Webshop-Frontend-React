@@ -20,18 +20,18 @@ export function Login() {
     fetch("http://192.168.0.128:8081/api/auth/login", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         userStore.isLoggedIn = true;
         userStore.userId = data;
         localStorage.setItem("isLoggedIn", true);
         loginTrue();
       })
-      .catch(e => {
+      .catch((e) => {
         console.error(e);
         loginFalse();
       });
@@ -46,11 +46,11 @@ export function Login() {
     setShowError(true);
   }
 
-  const handleEmailChange = event => {
+  const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
 
-  const handlePasswordChange = event => {
+  const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
 
@@ -71,7 +71,13 @@ export function Login() {
         <label>
           <b>Email</b>
         </label>
-        <input type="text" id="Email" placeholder="Enter Email" onChange={handleEmailChange} value={email}></input>
+        <input
+          type="text"
+          id="Email"
+          placeholder="Enter Email"
+          onChange={handleEmailChange}
+          value={email}
+        ></input>
 
         <label>
           <b>Password</b>

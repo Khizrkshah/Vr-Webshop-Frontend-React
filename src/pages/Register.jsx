@@ -11,7 +11,7 @@ export function Register() {
   const [lastName, setLastName] = useState("");
 
   function registerUser(data) {
-    fetch("http://localhost:8081/api/auth/register", {
+    fetch("http://192.168.0.128:8081/api/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -114,9 +114,6 @@ export function Register() {
         </form>
       </div>
       <hr />
-      <footer className="footer">
-        <div className="constraint">Mian Khizr Shah &copy; 2023</div>
-      </footer>
     </div>
   );
 }
